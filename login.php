@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="system/img/logo.svg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>В Х О Д</title>
 </head>
-<body>
-    <button onclick="window.history.back()">Back</button>
-    <form action="" class="login-form">
+
+<body class="login-body">
+    <button onclick="window.history.back()" class="back">Back</button>
+    <form class="login-form" id="login_form">
+        <div class="entry">
+            <img src="system/img/logo.svg" alt="">
+        </div>
         <div class="entry">
             <label for="">Логин</label>
             <input type="text" id="login">
@@ -16,8 +24,14 @@
             <label for="">Пароль</label>
             <input type="password" id="password">
         </div>
-        <button type="submit">Войти</button>
-        <a href="">Подключить ресторан</a>
+        <div class="entry">
+            <button type="submit">Войти</button>
+            <a href="">Подключить ресторан</a>
+        </div>
+        <p id="error"></p>
+
     </form>
+    <script src="js/loging.js"></script>
 </body>
+
 </html>

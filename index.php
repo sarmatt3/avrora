@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="system/img/logo.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A V R O R A</title>
 </head>
