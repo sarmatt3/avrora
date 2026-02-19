@@ -24,4 +24,8 @@ window.document.getElementById("login_form").addEventListener("submit", async e 
         showError(result.error);
     }
 
+    else{
+        window.location.href = 'profile.php';
+    }
+
 })

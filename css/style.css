@@ -3,6 +3,8 @@
     border: none;
     font-family: sans-serif;
     transition: all 0.5s;
+    padding: 0;
+    margin: 0;
 }
 
 :root{
@@ -10,8 +12,40 @@
     --white: #ffffff;
 }
 
-.login-body{
+/* H  E  A  D  E  R */
+
+header{
+    background-color: var(--base);
+    display: flex;
+    justify-content: space-between;
     
+    padding: 10px 20px;
+}
+
+header img{
+    width: 60px;
+}
+
+nav{
+    display: flex;
+    height: 100%;
+    place-content: center;
+    gap: 25px;
+    
+}
+
+nav a{
+    font-size: 24px;
+    text-decoration: none;
+    color: var(--white);
+}
+
+
+
+
+
+.login-body{
+    background-color: #e8e8e8;
     place-content: center;
     min-height: 100vh;
 }
@@ -101,4 +135,78 @@
 
 #error{
     animation: scale 0.5s;
+}
+
+/* I N D E X */
+
+main{
+    background-color: #fdfff5;
+    display: flex;
+    padding: 20px;
+    width: 80%;
+    margin: 20px auto;
+    gap: 20px;
+    box-shadow: 0 0 4px 2px #00000025;
+    border-radius: 10px;
+}
+
+
+
+.info, main form{
+    width: 50%;
+    gap: 25px;
+}
+
+main form{
+    background-color: var(--base);
+    padding: 25px;
+    border-radius: 10px;
+}
+
+main form * {
+    width: 100%;
+}
+
+main form .entry{
+    margin: 0;
+    width: 100%;
+}
+
+main form .entry input, main form select, #book{
+    margin: 0;
+    background-color: #ffffff;
+    padding: 10px;
+    margin-bottom: 50px;
+    width: 100%;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+main form .entry label{
+    color: var(--white);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#book{
+    background-color: #00cc2c;
+    color: var(--white);
+    margin-bottom: 20px;
+
+}
+
+@keyframes fadein{
+    0%{
+        opacity: 0%;
+        transform: translateY(-10px);
+    }
+
+    100%{
+        opacity: 100%;
+        
+    }
+}
+
+main, .login-form{
+    animation: fadein 1s;
 }

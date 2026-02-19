@@ -11,7 +11,7 @@
 </head>
 
 <body class="login-body">
-    <button onclick="window.history.back()" class="back">Back</button>
+    <button onclick="window.history.back()" class="back"><span class="material-icons">arrow_back</span></button>
     <form class="login-form" id="login_form">
         <div class="entry">
             <img src="system/img/logo.svg" alt="">
