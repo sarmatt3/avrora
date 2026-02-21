@@ -2,10 +2,10 @@
 require_once("php/db.php");
 require_once("php/funcs.php");
 
-if (!isset($_COOKIE["auth"])){
+if (!isset($_COOKIE["auth"])) {
     $_SESSION['title'] = "Вход";
     $_SESSION["url"] = "login.php";
-}else{
+} else {
     getData($_COOKIE["auth"]);
 }
 ?>
@@ -26,13 +26,13 @@ if (!isset($_COOKIE["auth"])){
             <img src="system/img/logo.svg" alt="">
         </nav>
         <nav>
-            <a href="">Бронирование</a>
-            <a href="">Рестораны</a>
-            <a href="">Контакты</a>
+            <a href="index.php">Бронирование</a>
+            <a href="restaurants.php">Рестораны</a>
+            <a href="contacts.php">Контакты</a>
         </nav>
 
         <nav>
-            <a href=<?=$_SESSION["url"]?>><?=$_SESSION["title"]?></a>
+            <a href=<?= $_SESSION["url"] ?>><?= $_SESSION["title"] ?></a>
         </nav>
     </header>
     <main>
@@ -45,6 +45,13 @@ if (!isset($_COOKIE["auth"])){
                 <label for="">Ресторан</label>
                 <select name="rest" id="rest">
                     <option value="">-- Выберите ресторан --</option>
+                    <?php
+                    $sql = "SELECT name, id FROM restaurants";
+                    $result = mysqli_query($conn, $sql);
+                    while ($rest = $result->fetch_assoc()): ?>
+                        <option value=<?= $rest['id'] ?>><?= $rest['name'] ?></option>
+                    <?php endwhile;
+                    $result -> close() ?>
                 </select>
             </div>
 
@@ -53,6 +60,13 @@ if (!isset($_COOKIE["auth"])){
                 <label for="">Дата и время</label>
                 <select name="date-time" id="date-time" disabled>
                     <option value="">-- Сначала выберите ресторан --</option>
+                    <?php
+                    $sql = "SELECT id, date, time, address FROM free_places";
+                    $result = mysqli_query($conn, $sql);
+                    while ($date = $result->fetch_assoc()): ?>
+                        <option value=<?= $date['id'] ?>><?= $date['date'] . " " . $date["time"]?></option>
+                    <?php endwhile;
+                    $result -> close() ?>
                 </select>
             </div>
 
@@ -66,7 +80,7 @@ if (!isset($_COOKIE["auth"])){
                 <input type="text" name="" id="phone" placeholder="+7XXXXXXXXXX">
             </div>
 
-            <button type="submit" id="book" >Забронировать</button>
+            <button type="submit" id="book">Забронировать</button>
         </form>
     </main>
 </body>

@@ -10,6 +10,7 @@
 :root{
     --base: #202020;
     --white: #ffffff;
+    --titan: #e5e4e2;
 }
 
 /* H  E  A  D  E  R */
@@ -207,6 +208,39 @@ main form .entry label{
     }
 }
 
-main, .login-form{
+main, .login-form, .rest{
     animation: fadein 1s;
+}
+
+/* R E S T A U R A N T S */
+
+.rest{
+    background-color: var(--titan);
+    border-radius: 5px;
+    padding: 10px;
+    width: max-content;
+    max-width: 80%;
+    overflow: hidden;
+    margin: 20px auto;
+}
+
+
+
+.rest img{
+    float: left;
+    width: 400px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.a-btn{
+    color: var(--white);
+    background-color: var(--base);
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 20px;
+    text-decoration: none;
+    margin: 10px 0;
+    position: absolute;
+
 }
