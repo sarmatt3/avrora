@@ -15,7 +15,7 @@ if (!isset($_COOKIE["auth"])) {
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="system/img/logo.svg">
+    <link rel="icon" href="system/img/logo-b.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A V R O R A</title>
 </head>
