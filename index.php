@@ -57,16 +57,16 @@ if (!isset($_COOKIE["auth"])) {
 
 
             <div class="entry">
-                <label for="">Дата и время</label>
+                <label for="">Дата</label>
                 <select name="date-time" id="date-time" disabled>
                     <option value="">-- Сначала выберите ресторан --</option>
-                    <?php
-                    $sql = "SELECT id, date, time, address FROM free_places";
-                    $result = mysqli_query($conn, $sql);
-                    while ($date = $result->fetch_assoc()): ?>
-                        <option value=<?= $date['id'] ?>><?= $date['date'] . " " . $date["time"]?></option>
-                    <?php endwhile;
-                    $result -> close() ?>
+                </select>
+            </div>
+
+            <div class="entry">
+                <label for="">Время</label>
+                <select name="time" id="time" disabled>
+                    <option value="">-- Сначала выберите дату --</option>
                 </select>
             </div>
 
@@ -83,6 +83,7 @@ if (!isset($_COOKIE["auth"])) {
             <button type="submit" id="book">Забронировать</button>
         </form>
     </main>
+    <script src="js/booking.js"></script>
 </body>
 
 </html>
