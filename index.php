@@ -16,6 +16,7 @@ if (!isset($_COOKIE["auth"])) {
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="system/img/logo-b.svg">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A V R O R A</title>
 </head>
@@ -40,7 +41,7 @@ if (!isset($_COOKIE["auth"])) {
             AVRORA - Забронируй место в ресторане в один клик!
         </div>
 
-        <form action="">
+        <form id="booking-form">
             <div class="entry">
                 <label for="">Ресторан</label>
                 <select name="rest" id="rest">
@@ -83,6 +84,18 @@ if (!isset($_COOKIE["auth"])) {
             <button type="submit" id="book">Забронировать</button>
         </form>
     </main>
+
+    <div id="notification">
+        <div class="content">
+            <span class="material-icons">check_circle</span>
+            <h1>Успешно!</h1>
+            <p id="rest-p"></p>
+            <p id="date-time-p"></p>
+            <p id="code-p"></p>
+            <button onclick="notification.style.display = 'none'">Закрыть</button>
+        </div>
+    </div>
+
     <script src="js/booking.js"></script>
 </body>
 

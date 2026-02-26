@@ -55,3 +55,38 @@ if ($type == "time") {
     echo json_encode(["success" => true, "result" => $places]);
     exit;
 }
+
+if ($type == "submit") {
+    $time_id = (int)$data["time_id"];
+    $fullname = $data["full_name"];
+    $restaurant = $data["restaurant"];
+    $phone = $data["phone"];
+    $sql = "SELECT * FROM free_places WHERE id = ?";
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param('i', $time_id);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    if ($result -> num_rows > 0){
+        $row = $result -> fetch_assoc();
+        $stmt -> close();
+    } else{
+        echo json_encode(["success" => false, "error" => "Дата и время не найдены!"]);
+        $stmt -> close();
+        exit;
+    }
+    $sql = "INSERT INTO booked_places(restaurant_id, date, time, phone, fullname, restaurant, code) VALUES (?,?,?,?,?,?,?)";
+    $stmt = $conn -> prepare($sql);
+    $code = codeGenerate($phone);
+    $stmt -> bind_param('issssss', $row["restaurant_id"], $row["date"], $row["time"], $phone, $fullname, $restaurant, $code);
+    $stmt -> execute();
+    
+    $stmt -> close();
+    
+
+    $sql = "DELETE FROM free_places WHERE id = ?";
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param('i', $time_id);
+    $stmt -> execute();
+    echo json_encode(["success" => true, "result" => ["rest" => $restaurant, "date-time" => $row["date"] . " " . $row["time"], "code" => $code]]);
+    exit;
+}

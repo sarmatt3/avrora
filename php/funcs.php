@@ -13,3 +13,11 @@ function getData($token){
     $_SESSION["url"] = "profile.php";
     $stmt -> close();
 }
+
+function codeGenerate($phone){
+    $number = rand(10000, 99999);
+    $phone_ch = substr($phone, -4, 4);
+
+    return "BKD-AVR-" . $number . $phone_ch;
+
+}

@@ -244,3 +244,20 @@ main, .login-form, .rest{
     position: absolute;
 
 }
+
+#notification{
+    height: 100vh;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    place-content: center;
+    min-height: 100vh;
+    background-color: #00000050;
+}
+
+#notification .content{
+    width: 33%;
+    margin: auto;
+    align-items: center;
+    text-align: center;
+}

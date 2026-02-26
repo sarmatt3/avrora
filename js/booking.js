@@ -75,3 +75,35 @@ document.getElementById("date-time").addEventListener("change", async e => {
     }
 
 })
+
+
+document.getElementById("booking-form").addEventListener("submit", async e => {
+    e.preventDefault();
+    const time_id = document.getElementById("time").value;
+    const restaurant = document.getElementById("rest").value;
+    const full_name = document.getElementById("fullname").value;
+    const phone = document.getElementById("phone").value;
+
+    let prest = document.getElementById("rest-p")
+    let pdatetime = document.getElementById("date-time-p")
+    let pcode = document.getElementById("code-p")
+    let type = "submit";
+
+    
+
+    const response = await fetch("./php/booking.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({type, time_id, full_name, phone, restaurant})
+    })
+
+    const result = await response.json();
+    if (!result.success) {
+        console.log("error " + result.error)
+    } else{
+        prest.innerText = result.result["rest"]
+        pdatetime.innerText = result.result["date-time"]
+        pcode.innerText = result.result["code"]
+        console.log("success" + "\n" + result.result["code"])
+    }
+})
