@@ -19,17 +19,22 @@ $result = mysqli_query($conn, $sql);
 </head>
 
 <body>
-    <header>
-        <nav>
-            <img src="system/img/logo.svg" alt="">
+        <header>
+        <nav class="menu">
+            <button onclick="header_menu.style.display = 'block'"><span class="material-icons">menu</span></button>
         </nav>
-        <nav>
-            <a href="index.php">Бронирование</a>
-            <a href="retaurants.php">Рестораны</a>
-            <a href="contacts.php">Контакты</a>
+
+        <nav class="logo">
+            <img src="system/img/logo.svg" alt="">
         </nav>
 
         <nav>
+            <a href="index.php">Бронирование</a>
+            <a href="restaurants.php" style="text-decoration: underline">Рестораны</a>
+            <a href="contacts.php">Контакты</a>
+        </nav>
+
+        <nav class="login-btn">
             <a href=<?= $_SESSION["url"] ?>><?= $_SESSION["title"] ?></a>
         </nav>
     </header>
@@ -47,6 +52,17 @@ $result = mysqli_query($conn, $sql);
         <?php endwhile ?>
 
     </div>
+
+    <div id="header_menu">
+        <nav>
+            <button onclick="header_menu.style.display = 'none'"><span class="material-icons">close</span></button>
+            <a href="index.php">Бронирование</a>
+            <a href="restaurants.php" style="text-decoration: underline">Рестораны</a>
+            <a href="contacts.php">Контакты</a>
+            
+        </nav>
+    </div>
+
 
 </body>
 

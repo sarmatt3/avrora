@@ -87,6 +87,7 @@ document.getElementById("booking-form").addEventListener("submit", async e => {
     let prest = document.getElementById("rest-p")
     let pdatetime = document.getElementById("date-time-p")
     let pcode = document.getElementById("code-p")
+    let padd = document.getElementById("address-p")
     let type = "submit";
 
     
@@ -103,7 +104,9 @@ document.getElementById("booking-form").addEventListener("submit", async e => {
     } else{
         prest.innerText = result.result["rest"]
         pdatetime.innerText = result.result["date-time"]
-        pcode.innerText = result.result["code"]
+        padd.innerText = result.result["code"]
+        pcode.innerText = result.result["address"]
+        document.getElementById("notification").style.display = 'block'
         console.log("success" + "\n" + result.result["code"])
     }
 })

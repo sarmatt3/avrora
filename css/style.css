@@ -1,4 +1,4 @@
-*{
+* {
     box-sizing: border-box;
     border: none;
     font-family: sans-serif;
@@ -7,51 +7,122 @@
     margin: 0;
 }
 
-:root{
+button {
+    cursor: pointer;
+}
+
+:root {
     --base: #202020;
     --white: #ffffff;
-    --titan: #e5e4e2;
+    --titan: #fafafa;
+    --green: #00cc2c;
+    --shadow: 0 0 4px 2px #00000025;
 }
 
 /* H  E  A  D  E  R */
 
-header{
+header {
     background-color: var(--base);
     display: flex;
     justify-content: space-between;
     
+
     padding: 10px 20px;
 }
 
-header img{
+header img {
     width: 60px;
 }
 
-nav{
+nav {
     display: flex;
     height: 100%;
     place-content: center;
     gap: 25px;
-    
+
 }
 
-nav a{
+nav a {
     font-size: 24px;
     text-decoration: none;
     color: var(--white);
 }
 
+nav.menu {
+    display: none;
+}
+
+nav.menu button{
+    background-color: unset;
+}
+
+nav.menu span.material-icons{
+    font-size: 24px;
+    color: var(--white);
+}
+
+
+@media (max-width: 1080px) {
+    header nav {
+        display: none;
+    }
+
+    nav.logo,
+    nav.login-btn,
+    nav.menu {
+        display: block;
+
+    }
+
+    nav a, nav.menu span.material-icons{
+        font-size: 20px;
+    }
+
+
+}
+
+/* MENU */
+
+@keyframes slide{
+    0%{
+        margin-left: -70%;
+    }
+
+    100%{}
+}
 
 
 
 
-.login-body{
+
+#header_menu{
+    display: none;
+    background-color: var(--base);
+    width: 70%;
+    padding: 15px 0;
+    position: absolute;
+    top: 0;
+    animation: slide 1s;
+}
+
+#header_menu nav{
+    display: grid;
+}
+
+#header_menu button{
+    
+}
+
+
+
+
+.login-body {
     background-color: #e8e8e8;
     place-content: center;
     min-height: 100vh;
 }
 
-.login-form{
+.login-form {
     display: block;
     padding: 20px;
     width: 30%;
@@ -59,27 +130,28 @@ nav a{
     margin: auto;
 }
 
-.login-form label{
+.login-form label {
     color: var(--white);
     font-size: 24px;
     width: 100%;
 }
 
-.entry{
+.entry {
     width: 75%;
     display: grid;
     margin: 20px auto;
-    
+
 }
 
-.entry input, .entry button{
+.entry input,
+.entry button {
     padding: 10px;
     margin-bottom: 10px;
     width: 100%;
     font-size: 20px;
 }
 
-.entry button{
+.entry button {
     color: var(--base);
     background-color: var(--white);
     font-weight: bold;
@@ -87,14 +159,14 @@ nav a{
     cursor: pointer;
 }
 
-.entry img{
+.entry img {
     width: 25%;
-    
+
     margin: auto;
     margin-bottom: 50px;
 }
 
-.back{
+.back {
     position: absolute;
     top: 20px;
     left: 20px;
@@ -104,13 +176,13 @@ nav a{
     border-radius: 100px;
 }
 
-.entry a{
+.entry a {
     color: var(--white);
     font-size: 20px;
-    
+
 }
 
-#error{
+#error {
     color: var(--white);
     background-color: #ff0000;
     text-align: center;
@@ -122,25 +194,31 @@ nav a{
     display: none;
 }
 
-@keyframes scale{
-    0%{
+@keyframes scale {
+    0% {
         opacity: 0%;
         transform: scale(0.1);
     }
 
-    100%{
+    100% {
         opacity: 100%;
         transform: scale(1);
     }
 }
 
-#error{
+#error {
     animation: scale 0.5s;
+}
+
+@media (max-width: 1080px) {
+    .login-form {
+        width: 90%;
+    }
 }
 
 /* I N D E X */
 
-main{
+main {
     background-color: #fdfff5;
     display: flex;
     padding: 20px;
@@ -153,12 +231,13 @@ main{
 
 
 
-.info, main form{
+.info,
+main form {
     width: 50%;
     gap: 25px;
 }
 
-main form{
+main form {
     background-color: var(--base);
     padding: 25px;
     border-radius: 10px;
@@ -168,12 +247,14 @@ main form * {
     width: 100%;
 }
 
-main form .entry{
+main form .entry {
     margin: 0;
     width: 100%;
 }
 
-main form .entry input, main form select, #book{
+main form .entry input,
+main form select,
+#book {
     margin: 0;
     background-color: #ffffff;
     padding: 10px;
@@ -183,38 +264,53 @@ main form .entry input, main form select, #book{
     border-radius: 10px;
 }
 
-main form .entry label{
+main form .entry label {
     color: var(--white);
     font-size: 20px;
     margin-bottom: 10px;
 }
 
-#book{
+#book {
     background-color: #00cc2c;
     color: var(--white);
     margin-bottom: 20px;
 
 }
 
-@keyframes fadein{
-    0%{
+@keyframes fadein {
+    0% {
         opacity: 0%;
         transform: translateY(-10px);
     }
 
-    100%{
+    100% {
         opacity: 100%;
-        
+
     }
 }
 
-main, .login-form, .rest{
+main,
+.login-form,
+.rest {
     animation: fadein 1s;
+}
+
+
+@media (max-width: 1080px) {
+    main {
+        display: block;
+        width: 100%;
+    }
+
+    .info,
+    main form {
+        width: 100%;
+    }
 }
 
 /* R E S T A U R A N T S */
 
-.rest{
+.rest {
     background-color: var(--titan);
     border-radius: 5px;
     padding: 10px;
@@ -222,30 +318,49 @@ main, .login-form, .rest{
     max-width: 80%;
     overflow: hidden;
     margin: 20px auto;
+    box-shadow: var(--shadow);
 }
 
 
 
-.rest img{
+.rest img {
     float: left;
     width: 400px;
     border-radius: 10px;
     margin-right: 20px;
 }
 
-.a-btn{
+.a-btn {
     color: var(--white);
     background-color: var(--base);
     padding: 5px 15px;
     border-radius: 5px;
     font-size: 20px;
     text-decoration: none;
-    margin: 10px 0;
-    position: absolute;
+    margin: 25px 0;
+    
 
 }
 
-#notification{
+
+@media (max-width: 1080px) {
+    .rest{
+        max-width: 100%;
+    }
+
+    .rest img{
+        width: 200px;
+        margin-bottom: 10px;
+    }
+
+    .a-btn{
+        font-size: 16px;
+    }
+}
+
+/* DIALOG WINDOW */
+
+#notification {
     height: 100vh;
     width: 100%;
     position: absolute;
@@ -253,11 +368,61 @@ main, .login-form, .rest{
     place-content: center;
     min-height: 100vh;
     background-color: #00000050;
+    display: none;
 }
 
-#notification .content{
+#notification .content {
     width: 33%;
+    min-height: 33vh;
     margin: auto;
     align-items: center;
     text-align: center;
+    background-color: var(--titan);
+    border-radius: 10px;
+    padding: 25px 10px;
+    animation: fadein 1s;
+}
+
+#notification span.material-icons {
+    font-size: 45px;
+    color: var(--green);
+}
+
+#notification h1 {
+    color: var(--green);
+    margin-bottom: 15px;
+}
+
+#notification p {
+    padding-bottom: 10px;
+    font-size: 20px;
+}
+
+#rest-p {
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+#date-time-p {
+    font-style: italic;
+}
+
+.text {
+    margin: 30px auto;
+}
+
+.content button {
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 16px;
+    background-color: var(--green);
+    color: var(--white);
+    border-radius: 100px;
+
+}
+
+@media (max-width: 1080px) {
+    #notification .content {
+        width: 70%;
+    }
 }

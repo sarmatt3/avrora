@@ -59,15 +59,18 @@ if ($type == "time") {
 if ($type == "submit") {
     $time_id = (int)$data["time_id"];
     $fullname = $data["full_name"];
-    $restaurant = $data["restaurant"];
+    
     $phone = $data["phone"];
     $sql = "SELECT * FROM free_places WHERE id = ?";
+    
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param('i', $time_id);
     $stmt -> execute();
     $result = $stmt -> get_result();
     if ($result -> num_rows > 0){
         $row = $result -> fetch_assoc();
+        $restaurant = $row["restaurant"];
+        $address = $row["address"];
         $stmt -> close();
     } else{
         echo json_encode(["success" => false, "error" => "Дата и время не найдены!"]);
@@ -87,6 +90,6 @@ if ($type == "submit") {
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param('i', $time_id);
     $stmt -> execute();
-    echo json_encode(["success" => true, "result" => ["rest" => $restaurant, "date-time" => $row["date"] . " " . $row["time"], "code" => $code]]);
+    echo json_encode(["success" => true, "result" => ["rest" => $restaurant, "date-time" => $row["date"] . " " . $row["time"], "address" => $address, "code" => $code]]);
     exit;
 }

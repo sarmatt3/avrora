@@ -23,16 +23,21 @@ if (!isset($_COOKIE["auth"])) {
 
 <body>
     <header>
-        <nav>
+        <nav class="menu">
+            <button onclick="header_menu.style.display = 'block'"><span class="material-icons">menu</span></button>
+        </nav>
+
+        <nav class="logo">
             <img src="system/img/logo.svg" alt="">
         </nav>
+
         <nav>
-            <a href="index.php">Бронирование</a>
+            <a href="index.php" style="text-decoration: underline">Бронирование</a>
             <a href="restaurants.php">Рестораны</a>
             <a href="contacts.php">Контакты</a>
         </nav>
 
-        <nav>
+        <nav class="login-btn">
             <a href=<?= $_SESSION["url"] ?>><?= $_SESSION["title"] ?></a>
         </nav>
     </header>
@@ -52,7 +57,7 @@ if (!isset($_COOKIE["auth"])) {
                     while ($rest = $result->fetch_assoc()): ?>
                         <option value=<?= $rest['id'] ?>><?= $rest['name'] ?></option>
                     <?php endwhile;
-                    $result -> close() ?>
+                    $result->close() ?>
                 </select>
             </div>
 
@@ -73,27 +78,41 @@ if (!isset($_COOKIE["auth"])) {
 
             <div class="entry">
                 <label for="">ФИО</label>
-                <input type="text" name="" id="fullname">
+                <input type="text" name="" id="fullname" required>
             </div>
 
             <div class="entry">
                 <label for="">Телефон</label>
-                <input type="text" name="" id="phone" placeholder="+7XXXXXXXXXX">
+                <input type="text" name="" id="phone" placeholder="+7XXXXXXXXXX" required>
             </div>
 
             <button type="submit" id="book">Забронировать</button>
         </form>
     </main>
 
-    <div id="notification">
+    <div id="notification" onclick="this.style.display = 'none'">
         <div class="content">
             <span class="material-icons">check_circle</span>
             <h1>Успешно!</h1>
-            <p id="rest-p"></p>
-            <p id="date-time-p"></p>
-            <p id="code-p"></p>
+            <div class="text">
+                <p id="rest-p"></p>
+                <p id="date-time-p"></p>
+                <p id="address-p"></p>
+                <p id="code-p"></p>
+            </div>
+            <p id="" style="font-size: 16px; opacity: 50%;">Сделайте снимок экрана, чтобы сохранить код бронирования и QR-код</p>
             <button onclick="notification.style.display = 'none'">Закрыть</button>
         </div>
+    </div>
+
+    <div id="header_menu">
+        <nav>
+            <button onclick="header_menu.style.display = 'none'"><span class="material-icons">close</span></button>
+            <a href="index.php" style="text-decoration: underline">Бронирование</a>
+            <a href="restaurants.php">Рестораны</a>
+            <a href="contacts.php">Контакты</a>
+
+        </nav>
     </div>
 
     <script src="js/booking.js"></script>
