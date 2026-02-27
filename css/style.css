@@ -254,7 +254,7 @@ main form .entry {
 
 main form .entry input,
 main form select,
-#book {
+#book, .send {
     margin: 0;
     background-color: #ffffff;
     padding: 10px;
@@ -270,7 +270,7 @@ main form .entry label {
     margin-bottom: 10px;
 }
 
-#book {
+#book, .send {
     background-color: #00cc2c;
     color: var(--white);
     margin-bottom: 20px;
@@ -424,5 +424,105 @@ main,
 @media (max-width: 1080px) {
     #notification .content {
         width: 70%;
+    }
+}
+
+
+/* C O N T A C T S */
+
+.contacts{
+    background-color: unset;
+    box-shadow: none;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: auto;
+    max-width: 90%;
+    gap: 30px;
+    place-content: center;
+}
+
+.c-card{
+    margin: 10px auto;
+    background-color: var(--base);
+    border-radius: 10px;
+    width: 100%;
+    height: 25vh;
+    text-align: center;
+    place-content: center;
+    animation: fadein 1s;
+}
+
+.c-card *{
+    color: var(--white);
+    margin: 10px;
+}
+
+.c-card p{
+    font-size: 24px;
+}
+
+.c-card h1{
+    letter-spacing: 3px;
+}
+
+.c-card div{
+    margin-top: 30px;
+}
+
+.a-contact-btn{
+    background-color: var(--titan);
+    color: var(--base);
+    padding: 10px 15px;
+    text-decoration: none;
+    margin: 40px;
+    border-radius: 10px;
+}
+
+.advise{
+    background-color: var(--base);
+    width: 30%;
+    margin: 25px auto;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    animation: fadein 1s;
+}
+
+.advise textarea{
+    height: 20vh;
+}
+
+.advise textarea, input, button {
+    border-radius: 10px;
+}
+
+.advise label, .advise h3{
+    color: var(--white);
+}
+
+.advise .entry{
+    text-align: left;
+}
+
+.send{
+    width: 75%;
+}
+
+@media (max-width: 1080px){
+    .contacts{
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .c-card{
+        height: 30vh;
+        
+    }
+
+    .c-card *{
+        font-size: 20px;
+    }
+
+    .advise{
+        width: 95%;
     }
 }

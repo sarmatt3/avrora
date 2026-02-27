@@ -30,7 +30,7 @@ $result = mysqli_query($conn, $sql);
 
         <nav>
             <a href="index.php">Бронирование</a>
-            <a href="restaurants.php" style="text-decoration: underline">Рестораны</a>
+            <a href="restaurants.php" style="text-decoration: underline; font-weight: bold; ">Рестораны</a>
             <a href="contacts.php">Контакты</a>
         </nav>
 
@@ -57,7 +57,7 @@ $result = mysqli_query($conn, $sql);
         <nav>
             <button onclick="header_menu.style.display = 'none'"><span class="material-icons">close</span></button>
             <a href="index.php">Бронирование</a>
-            <a href="restaurants.php" style="text-decoration: underline">Рестораны</a>
+            <a href="restaurants.php" style="text-decoration: underline; font-weight: bold; transition: trnslateX(5px);">Рестораны</a>
             <a href="contacts.php">Контакты</a>
             
         </nav>

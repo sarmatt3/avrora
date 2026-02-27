@@ -32,7 +32,7 @@ if (!isset($_COOKIE["auth"])) {
         </nav>
 
         <nav>
-            <a href="index.php" style="text-decoration: underline">Бронирование</a>
+            <a href="index.php" style="text-decoration: underline; font-weight: bold;">Бронирование</a>
             <a href="restaurants.php">Рестораны</a>
             <a href="contacts.php">Контакты</a>
         </nav>
@@ -108,7 +108,7 @@ if (!isset($_COOKIE["auth"])) {
     <div id="header_menu">
         <nav>
             <button onclick="header_menu.style.display = 'none'"><span class="material-icons">close</span></button>
-            <a href="index.php" style="text-decoration: underline">Бронирование</a>
+            <a href="index.php" style="text-decoration: underline; font-weight: bold; transform: trnslateX(5px);">Бронирование</a>
             <a href="restaurants.php">Рестораны</a>
             <a href="contacts.php">Контакты</a>
 
