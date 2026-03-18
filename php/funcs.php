@@ -10,7 +10,11 @@ function getData($token){
     $result = $stmt -> get_result();
     $row = $result -> fetch_assoc();
     $_SESSION["title"] = $row["name"];
+    $_SESSION["img"] = $row["img"];
+    $_SESSION["desc"] = $row["description"];
     $_SESSION["url"] = "profile.php";
+    $_SESSION["id"] = (int)$row["id"];
+
     $stmt -> close();
 }
 

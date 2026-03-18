@@ -7,89 +7,134 @@ require_once("funcs.php");
 
 $type = $data["type"];
 
+if ($type == "date"){
+    $rest = $data["restaurant"];
 
-if ($type == "date") {
-    $id = (int) $data["rest"];
-
-    if (empty($id)) {
-        echo json_encode(["success" => false, "error" => "Заполните все поля!"]);
-        exit;
-    }
-
-    $sql = "SELECT id, date FROM free_places WHERE restaurant_id = ? GROUP BY date";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $places = [];
-    while ($row = $result->fetch_assoc()) {
-        $places[] = [
-            'id' => $row['id'],
-            'date' => $row['date'],
-
-        ];
-    }
-    $stmt->close();
-
-    echo json_encode(["success" => true, "result" => $places]);
-    exit;
-}
-
-if ($type == "time") {
-    $id = $data["date"];
-    $sql = "SELECT id, time FROM free_places WHERE date = ? GROUP BY time";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $places = [];
-    while ($row = $result->fetch_assoc()) {
-        $places[] = [
-            'id' => $row["id"],
-            'time' => $row['time'],
-
-        ];
-    }
-    $stmt->close();
-
-    echo json_encode(["success" => true, "result" => $places]);
-    exit;
-}
-
-if ($type == "submit") {
-    $time_id = (int)$data["time_id"];
-    $fullname = $data["full_name"];
-    
-    $phone = $data["phone"];
-    $sql = "SELECT * FROM free_places WHERE id = ?";
-    
+    $sql = "SELECT * FROM free_places WHERE restaurant = ? GROUP BY date";
     $stmt = $conn -> prepare($sql);
-    $stmt -> bind_param('i', $time_id);
+    $stmt -> bind_param("s", $rest);
     $stmt -> execute();
     $result = $stmt -> get_result();
-    if ($result -> num_rows > 0){
-        $row = $result -> fetch_assoc();
-        $restaurant = $row["restaurant"];
-        $address = $row["address"];
-        $stmt -> close();
-    } else{
-        echo json_encode(["success" => false, "error" => "Дата и время не найдены!"]);
+    if (!($result -> num_rows > 0)){
+        echo json_encode(["success" => false, "error" => "Даты не найдены!"]);
         $stmt -> close();
         exit;
     }
-    $sql = "INSERT INTO booked_places(restaurant_id, date, time, phone, fullname, restaurant, code) VALUES (?,?,?,?,?,?,?)";
-    $stmt = $conn -> prepare($sql);
-    $code = codeGenerate($phone);
-    $stmt -> bind_param('issssss', $row["restaurant_id"], $row["date"], $row["time"], $phone, $fullname, $restaurant, $code);
-    $stmt -> execute();
-    
+    $dates = [];
+    while ($row = $result -> fetch_assoc()){
+        $dates[] = [
+            "date" => $row["date"]
+        ];
+    }
+
     $stmt -> close();
+    echo json_encode(["success" => true, "result" => $dates]);
+    exit;
+}
+
+
+
+if ($type == "time"){
+    $date = $data["date"];
+    $rest = $data["restaurant"];
+
+    $sql = "SELECT * FROM free_places WHERE date = ? and restaurant = ? GROUP BY time";
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param("ss", $date, $rest);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    if (!($result -> num_rows > 0)){
+        echo json_encode(["success" => false, "error" => "Даты не найдены!"]);
+        $stmt -> close();
+        exit;
+    }
+    $times = [];
+    while ($row = $result -> fetch_assoc()){
+        $times[] = [
+            "time" => $row["time"]
+        ];
+    }
+
+    $stmt -> close();
+    echo json_encode(["success" => true, "result" => $times]);
+    exit;
+}
+
+
+
+if ($type == "table"){
+    $time = $data["time"];
+    $date = $data["date"];
+    $rest = $data["restaurant"];
+    $sql = "SELECT * FROM free_places WHERE time = ? and date = ? and restaurant = ? GROUP BY table_";
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param("sss", $time, $date, $rest);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    if (!($result -> num_rows > 0)){
+        echo json_encode(["success" => false, "error" => "Даты не найдены!" . $date . $time]);
+        $stmt -> close();
+        exit;
+    }
+    $tables = [];
+    while ($row = $result -> fetch_assoc()){
+        $tables[] = [
+            "table" => $row["table_"],
+            "id" => $row["id"]
+        ];
+    }
+
+    $stmt -> close();
+    echo json_encode(["success" => true, "result" => $tables]);
+    exit;
+}
+
+
+if ($type == "submit"){
+
+
+    $time = $data["time"];
+    $date = $data["date"];
+    $rest = $data["restaurant"];
     
+    $id = (int)$data["book_id"];
+    $fullname = $data["fullname"];
+    $phone = $data["phone"];
+
+    $sql = "SELECT * FROM free_places WHERE id = ?";
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param("i", $id);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    $row = $result -> fetch_assoc();
+    $table = $row["table_"];
+    $stmt -> close();
+
 
     $sql = "DELETE FROM free_places WHERE id = ?";
     $stmt = $conn -> prepare($sql);
-    $stmt -> bind_param('i', $time_id);
+    $stmt -> bind_param("i", $id);
     $stmt -> execute();
-    echo json_encode(["success" => true, "result" => ["rest" => $restaurant, "date-time" => $row["date"] . " " . $row["time"], "address" => $address, "code" => $code]]);
+    $stmt -> close();
+
+    $sql = "SELECT id, address FROM restaurants WHERE name = ?";
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param("s", $rest);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    $row = $result -> fetch_assoc();
+    $rest_id = (int)$row["id"];
+    $address = $row["address"];
+    $stmt -> close();
+
+
+    $sql = "INSERT INTO booked_places(restaurant, restaurant_id, date, time, table_, fullname, phone, code, address) VALUES (?,?,?,?,?,?,?,?,?)";
+    $code = codeGenerate($phone);
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param("sississss", $rest, $rest_id, $date, $time, $table, $fullname, $phone, $code, $address);
+    $stmt -> execute();
+    $stmt -> close();
+    
+    echo json_encode(["success" => true, "result" => ["rest" => $rest, "date-time" => $date . " " . $time, "table" => $table, "code" => $code, "address" => $address]]);
     exit;
 }

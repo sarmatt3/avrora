@@ -17,6 +17,7 @@ button {
     --titan: #fafafa;
     --green: #00cc2c;
     --shadow: 0 0 4px 2px #00000025;
+    --orange: #ff9500;
 }
 
 /* H  E  A  D  E  R */
@@ -95,7 +96,7 @@ nav.menu span.material-icons{
 
 
 
-#header_menu{
+#header_menu, #manage_panel{
     display: none;
     background-color: var(--base);
     width: 70%;
@@ -109,9 +110,6 @@ nav.menu span.material-icons{
     display: grid;
 }
 
-#header_menu button{
-    
-}
 
 
 
@@ -524,5 +522,108 @@ main,
 
     .advise{
         width: 95%;
+    }
+}
+
+/* P R O F I L E */
+
+.profile, .books{
+    background-color: var(--base);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 20px;
+    width: 70%;
+    overflow: hidden;
+    
+}
+
+.profile * , .books *{
+    color: var(--white);
+}
+
+.profile-img{
+    width: 300px;
+    float: left;
+    margin: 10px;
+    border: 1px solid var(--titan);
+    border-radius: 10px;
+}
+
+.profile button{
+    padding: 5px 10px;
+    color: var(--base);
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    background-color: var(--white);
+    border-radius: 5px;
+    margin-top: 15px;
+    position: static;
+    text-align: right;
+
+}
+
+.info-profile{
+    margin: 10px;
+}
+
+.main{
+    width: 100%;
+}
+
+.books table{
+    border-spacing: 30px 10px;
+}
+
+.books {
+    overflow: auto;
+    max-height: 50vh;
+}
+
+.books::-webkit-scrollbar{
+    display: none;
+}
+
+#del, #notif_btn {
+    background-color: red;
+    padding: 5px 10px;
+}
+
+#notif_btn{
+    background-color: var(--green);
+}
+
+.warning span.material-icons{
+    color: var(--orange);
+}
+
+.btns{
+    display: flex;
+    justify-content: space-between;
+}
+
+#manage_panel{
+    top: 40px;
+    width: max-content;
+    right: 0;
+}
+
+#manage_panel button{
+    background-color: red;
+    font-size: 26px;
+    color: var(--white);
+    
+}
+
+#manage_panel button span.material-icons{
+    color: var(--white);
+    font-size: 24px;
+}
+
+
+@media (max-width: 1080px){
+    .profile, .books{
+        width: 98%;
+        margin: 20px auto;
     }
 }

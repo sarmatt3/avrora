@@ -52,10 +52,10 @@ if (!isset($_COOKIE["auth"])) {
                 <select name="rest" id="rest">
                     <option value="">-- Выберите ресторан --</option>
                     <?php
-                    $sql = "SELECT name, id FROM restaurants";
+                    $sql = "SELECT name FROM restaurants";
                     $result = mysqli_query($conn, $sql);
                     while ($rest = $result->fetch_assoc()): ?>
-                        <option value=<?= $rest['id'] ?>><?= $rest['name'] ?></option>
+                        <option value=<?= $rest['name'] ?>><?= $rest['name'] ?></option>
                     <?php endwhile;
                     $result->close() ?>
                 </select>
@@ -63,16 +63,23 @@ if (!isset($_COOKIE["auth"])) {
 
 
             <div class="entry">
-                <label for="">Дата</label>
-                <select name="date-time" id="date-time" disabled>
+                <label for="date">Дата</label>
+                <select name="date" id="date" disabled>
                     <option value="">-- Сначала выберите ресторан --</option>
                 </select>
             </div>
 
             <div class="entry">
-                <label for="">Время</label>
+                <label for="time">Время</label>
                 <select name="time" id="time" disabled>
                     <option value="">-- Сначала выберите дату --</option>
+                </select>
+            </div>
+
+            <div class="entry">
+                <label for="table">Стол</label>
+                <select name="time" id="table" disabled>
+                    <option value="">-- Сначала выберите время --</option>
                 </select>
             </div>
 
@@ -86,6 +93,11 @@ if (!isset($_COOKIE["auth"])) {
                 <input type="text" name="" id="phone" placeholder="+7XXXXXXXXXX" required>
             </div>
 
+            <div class="entry" style="display: flex;">
+                <input style="width: auto" type="checkbox" id="acception" required>
+                <label style="width: auto" for="acception">Даю согласие на обработку ПД</label>
+            </div>
+
             <button type="submit" id="book">Забронировать</button>
         </form>
     </main>
@@ -97,10 +109,12 @@ if (!isset($_COOKIE["auth"])) {
             <div class="text">
                 <p id="rest-p"></p>
                 <p id="date-time-p"></p>
+                <p id="table-p"></p>
                 <p id="address-p"></p>
                 <p id="code-p"></p>
             </div>
-            <p id="" style="font-size: 16px; opacity: 50%;">Сделайте снимок экрана, чтобы сохранить код бронирования и QR-код</p>
+            <p id="" style="font-size: 16px; opacity: 50%;">Сделайте снимок экрана, чтобы сохранить код бронирования и
+                QR-код</p>
             <button onclick="notification.style.display = 'none'">Закрыть</button>
         </div>
     </div>
@@ -108,7 +122,8 @@ if (!isset($_COOKIE["auth"])) {
     <div id="header_menu">
         <nav>
             <button onclick="header_menu.style.display = 'none'"><span class="material-icons">close</span></button>
-            <a href="index.php" style="text-decoration: underline; font-weight: bold; transform: trnslateX(5px);">Бронирование</a>
+            <a href="index.php"
+                style="text-decoration: underline; font-weight: bold; transform: trnslateX(5px);">Бронирование</a>
             <a href="restaurants.php">Рестораны</a>
             <a href="contacts.php">Контакты</a>
 
