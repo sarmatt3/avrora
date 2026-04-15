@@ -77,26 +77,84 @@ if (!isset($_COOKIE["auth"])) {
         </div>
     </div>
 
-    <form action="" class="advise">
+    <form id = "appeal-form" class="advise">
         <h3>Свяжитесь с нами!</h3>
 
         <div class="entry">
+            <label for="">Получатель</label>
+            <select name="" id="recipient" >
+                <option value="1221815181" selected>AVRORA</option>
+                <?php
+                $sql = "SELECT id, name FROM restaurants";
+                $stmt = $conn -> prepare($sql);
+                $stmt -> execute();
+                $result = $stmt -> get_result();
+                while($row = $result -> fetch_assoc()):?>
+                <option value=<?= $row["id"]?>><?= $row["name"]?></option>
+                <?php endwhile;?>
+            </select>
+            <p>Администрация AVRORA в любом случае получит Ваше обращение</p>
+        </div>
+
+        <div class="entry">
             <label for="">Имя</label>
-            <input type="text" id="name_adv">
+            <input type="text" id="name_adv" required>
         </div>
 
         <div class="entry">
             <label for="">Почта</label>
-            <input type="text" id="email">
+            <input type="text" id="email" required>
         </div>
 
         <div class="entry">
             <label for="">Сообщение</label>
-            <textarea name="" id="advise"></textarea>
+            <textarea name="" id="advise" required></textarea>
+            <p id="count">0/500</p>
         </div>
+        
 
         <button type="submit" class="send">Отправить</button>
     </form>
+
+    <div id="error-c" >
+        <div style="display: flex">
+            <span class="material-icons">error</span>
+            <h1>Ошибка</h1>
+        </div>
+        <p id="error-c-p"></p>
+        
+    </div>
+
+
+    <div id="notification" onclick="this.style.display = 'none'">
+        <div class="content">
+            <span class="material-icons">check_circle</span>
+            <h1>Успешно!</h1>
+            <div class="text">
+                <p>Обращение отправлено!</p>
+                <p>Его получит адресат, а также администрация сервиса!</p>
+            </div>
+            <p id="appeal-id" style="font-size: 16px; opacity: 50%;"></p>
+            <button onclick="notification.style.display = 'none'">Закрыть</button>
+        </div>
+    </div>
+    <script src="js/appeal.js"></script>
+    <script>
+        document.getElementById("advise").addEventListener("input", e => {
+            txt = document.getElementById("advise").value
+            l = txt.length
+            let p = document.getElementById("count")
+            p.innerText = l + "/500"
+            if (l >= 500){
+                p.style.color = "#ff0000"
+                p.style.opacity = "100%"
+            }else{
+                p.style.color = ""
+                p.style.opacity = ""
+            }
+            
+        })
+    </script>
 </body>
 
 </html>

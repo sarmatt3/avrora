@@ -18,6 +18,20 @@ button {
     --green: #00cc2c;
     --shadow: 0 0 4px 2px #00000025;
     --orange: #ff9500;
+    --red: #ff0000;
+}
+
+.cancel-color{
+    background-color: var(--red);
+    color: var(--white);
+
+    margin: 0;
+    
+    padding: 10px;
+    margin-bottom: 50px;
+    width: 100%;
+    font-size: 20px;
+    border-radius: 10px;
 }
 
 /* H  E  A  D  E  R */
@@ -26,7 +40,8 @@ header {
     background-color: var(--base);
     display: flex;
     justify-content: space-between;
-    
+    position: sticky;
+    top: 0;
 
     padding: 10px 20px;
 }
@@ -128,7 +143,7 @@ nav.menu span.material-icons{
     margin: auto;
 }
 
-.login-form label {
+.entry label {
     color: var(--white);
     font-size: 24px;
     width: 100%;
@@ -142,7 +157,9 @@ nav.menu span.material-icons{
 }
 
 .entry input,
-.entry button {
+.entry button,
+.entry select,
+.entry textarea {
     padding: 10px;
     margin-bottom: 10px;
     width: 100%;
@@ -192,6 +209,37 @@ nav.menu span.material-icons{
     display: none;
 }
 
+#error-c{
+    background-color: #ff0000;
+    width: 20%;
+    max-width: 30%;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 10px;
+    padding: 10px 10px;
+    display: none;
+    animation: errorsl 0.5s;
+}
+
+#error-c *{
+    color: var(--white);
+}
+
+#error-c span.material-icons{
+    font-size: 30px;
+    margin-right: 20px;
+    background-color: var(--white);
+    border-radius: 5px;
+    padding: 5px;
+    color: #ff0000;
+}
+
+#error-c p{
+    font-size: 24px;
+    margin-top: 10px;
+}
+
 @keyframes scale {
     0% {
         opacity: 0%;
@@ -202,6 +250,19 @@ nav.menu span.material-icons{
         opacity: 100%;
         transform: scale(1);
     }
+}
+
+@keyframes errorsl{
+    0%{
+        transform: translateX(150%);
+    }
+
+    90%{
+        transform: translateX(0%);
+    }
+
+    
+
 }
 
 #error {
@@ -230,12 +291,12 @@ main {
 
 
 .info,
-main form {
+main form,  #unbooking{
     width: 50%;
     gap: 25px;
 }
 
-main form {
+main form, #unbooking {
     background-color: var(--base);
     padding: 25px;
     border-radius: 10px;
@@ -268,7 +329,7 @@ main form .entry label {
     margin-bottom: 10px;
 }
 
-#book, .send {
+#book, .send{
     background-color: #00cc2c;
     color: var(--white);
     margin-bottom: 20px;
@@ -287,9 +348,13 @@ main form .entry label {
     }
 }
 
+#unbooking{
+    margin: 10px auto;
+}
+
 main,
 .login-form,
-.rest {
+.rest, #unbooking {
     animation: fadein 1s;
 }
 
@@ -312,7 +377,7 @@ main,
     background-color: var(--titan);
     border-radius: 5px;
     padding: 10px;
-    width: max-content;
+    
     max-width: 80%;
     overflow: hidden;
     margin: 20px auto;
@@ -343,7 +408,7 @@ main,
 
 @media (max-width: 1080px) {
     .rest{
-        max-width: 100%;
+        max-width: 80%;
     }
 
     .rest img{
@@ -358,7 +423,7 @@ main,
 
 /* DIALOG WINDOW */
 
-#notification {
+#notification, #editor, #appeal{
     height: 100vh;
     width: 100%;
     position: absolute;
@@ -369,7 +434,7 @@ main,
     display: none;
 }
 
-#notification .content {
+#notification .content, .a-content {
     width: 33%;
     min-height: 33vh;
     margin: auto;
@@ -490,7 +555,7 @@ main,
     height: 20vh;
 }
 
-.advise textarea, input, button {
+.advise textarea, input, button, .advise select {
     border-radius: 10px;
 }
 
@@ -504,6 +569,12 @@ main,
 
 .send{
     width: 75%;
+}
+
+.advise .entry p{
+    color: var(--white);
+    opacity: 50%;
+
 }
 
 @media (max-width: 1080px){
@@ -602,6 +673,11 @@ main,
     justify-content: space-between;
 }
 
+.btns form {
+    width: 100%;
+    padding: 0 20px;
+}
+
 #manage_panel{
     top: 40px;
     width: max-content;
@@ -620,6 +696,29 @@ main,
     font-size: 24px;
 }
 
+.e-content{
+    background-color: var(--white);
+    overflow: hidden;
+    width: 90%;
+    margin: auto;
+}
+
+.e-content input, .e-content textarea{
+    width: 60%;
+    height: max-content;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 0;
+    margin: 10px ;
+    
+}
+
+#tg-log{
+    background-color: #0072e3;
+    color: var(--white);
+    
+}
+
 
 @media (max-width: 1080px){
     .profile, .books{
@@ -627,3 +726,4 @@ main,
         margin: 20px auto;
     }
 }
+

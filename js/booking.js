@@ -42,6 +42,16 @@ document.getElementById("booking-form").addEventListener("submit", async e => {
 
 });
 
+function showError(error) {
+    let errorLabel = document.getElementById("error");
+    errorLabel.innerText = error;
+    errorLabel.style.display = "block"
+
+    setTimeout(() => {
+        errorLabel.innerText = "";
+        errorLabel.style.display = ""
+    }, 3000)
+}
 
 async function restValChange() {
     let restaurant = document.getElementById("rest").value
@@ -161,3 +171,28 @@ async function timeValChange() {
     }
 
 }
+
+
+document.getElementById("unbooking").addEventListener("submit", async e => {
+    e.preventDefault()
+    let phone_u = document.getElementById("phone-unbooking").value
+    let code_u = document.getElementById("code-unbooking").value
+    let type = "unbooking"
+
+    const response = await fetch("./php/booking.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type, phone_u, code_u })
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+        showError(result.error)
+    } else{
+        console.log(result.success)
+    }
+
+
+
+})

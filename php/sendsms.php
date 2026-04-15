@@ -1,42 +1,43 @@
 <?php
-// Получаем данные из POST
+require "funcs.php";
+require "db.php";
 if (isset($_POST['notif'])) {
-    
     $data = json_decode($_POST['notif'], true);
+    sendSMS($data);
 
-    if (json_last_error() === JSON_ERROR_NONE && is_array($data)) {
-        $phone = mb_substr($data['phone'], 1);
-        $datetime = $data['datetime'];
-        $rest = $data['rest'];
-        $address = $data['address'];
-        
-        $api = "F5BCA790-6F46-942D-4999-230BBCAF9E11";
-        $msg = "Напоминаем, что у Вас забронирован стол в ресторане " . $rest . " по адрессу: " . $address . "\nНа " . $datetime;
-        
-        
-        $params = [
-            "api_id" => $api,
-            "to" => $phone,
-            "msg" => $msg,
-            "json" => 1
+} else if (isset($_POST['del'])) {
+    $id = (int) $_POST["del"];
 
-        ];
+    $sql = "SELECT * FROM booked_places WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
 
-        $url = "https://sms.ru/sms/send";
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+    $data = [
+        "phone" => $row['phone'],
+        "datetime" => $row["date"] . " - " . $row["time"],
+        "rest" => $row["restaurant"],
+        "address" => $row["address"],
+        "id" => (int) $row["id"]
+    ];
 
-        $response = curl_exec($ch);
-        curl_close($ch);
-        
-        
-    } else {
-        echo "Ошибка: Неверный формат данных";
-        echo "<br>JSON ошибка: " . json_last_error_msg();
-    }
-} else {
-    echo "Нет данных для обработки";
+    $jsonData = json_encode($data, JSON_UNESCAPED_UNICODE);
+
+    $sql = "DELETE FROM booked_places WHERE id = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stmt->close();
+
+    sendSMS($data, $msg = 'Ваша бронь в ресторане: \n' . $data["rest"] . ' по адресу:\n'. $data['address'] . '\nНа ' . $data['datetime'] . '\n Отменена сотрудником.\nДля уточнения информации свяжитесь с нами по номеру:\n77-95-77');
+    echo $result . $id;
+
+
 }
-?>
+
+header("Location: ../profile.php");
+

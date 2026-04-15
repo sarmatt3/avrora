@@ -55,7 +55,8 @@ if (!isset($_COOKIE["auth"])) {
                 <p><?= $_SESSION["desc"] ?></p>
             </div>
 
-            <button onclick="">Изменить</button>
+            <button onclick="openEditor(<?= $_SESSION['id'] ?>)" value=<?= $_SESSION["id"] ?>>Изменить</button>
+            <button id="tg-log">Вход в телеграм</button>
         </div>
     </div>
 
@@ -85,7 +86,8 @@ if (!isset($_COOKIE["auth"])) {
                         "phone" => $row['phone'],
                         "datetime" => $row["date"] . " - " . $row["time"],
                         "rest" => $row["restaurant"],
-                        "address" => $row["address"]
+                        "address" => $row["address"],
+                        "id" => (int)$row["id"]
                     ];
 
                     $jsonData = json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -98,12 +100,45 @@ if (!isset($_COOKIE["auth"])) {
                         <td><?= $row["time"] ?></td>
                         <td><?= $row["table_"] ?></td>
                         <td><?= $row["code"] ?></td>
-                        <td><button value=<?= $row['id'] ?> id="del"
-                                onclick="accept()">Удалить</button></td>
+                        <td><button value=<?= $row['id'] ?> id="del" onclick="accept()">Удалить</button></td>
                         <td>
                             <form action="php/sendsms.php" method="post"><button name="notif" value='<?= $jsonData ?>'
                                     id="notif_btn">Напоминание</button></form>
                         </td>
+                    </tr>
+
+                    <?php $stmt -> close(); $n += 1; endwhile ?>
+            </table>
+        </div>
+
+
+        <div class="books">
+            <h2>Обратная связь</h2>
+            <table>
+                <tr>
+                    <td>№</td>
+                    <td>ФИО</td>
+                    <td>Телефон</td>
+                    <td>Дата</td>
+                    
+                </tr>
+
+                <?php
+                $sql = "SELECT * FROM appeals WHERE recipient = ? ORDER BY id DESC";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("i", $_SESSION["id"]);
+                $stmt->execute();
+                
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()):
+                    ?>
+                    <tr>
+                        <td><?= $row["id"] ?></td>
+                        <td><?= $row["fullname"] ?></td>
+                        <td><?= $row["email"] ?></td>
+                        <td><?= $row["date"] ?></td>
+                        <td><button value="<?= $row["text"] ?>" onclick="openAppeal({'name' : '<?= $row['fullname'] ?>', 'text' : '<?= $row['text'] ?>', 'email' : '<?= $row['email'] ?>'})">Открыть</button></td>
+                        
                     </tr>
 
                     <?php $n += 1; endwhile ?>
@@ -125,7 +160,7 @@ if (!isset($_COOKIE["auth"])) {
 
 
     <div id="manage_panel" onmouseenter="manage_panel.style.display = 'block'"
-                onmouseleave="manage_panel.style.display = 'none'">
+        onmouseleave="manage_panel.style.display = 'none'">
         <nav>
             <button onclick=""><span class="material-icons">logout</span> Выход</button>
         </nav>
@@ -136,20 +171,71 @@ if (!isset($_COOKIE["auth"])) {
             <span class="material-icons" style="color: var(--orange);">warning</span>
             <p class="war-txt">Вы действительно хотите удалить эту запись? Клиент будет оповещен об отмене брони!</p>
             <div class="btns">
-                <button>Подтвердить</button>
+                <form action="php/sendsms.php" method="post"><button id="accept" name="del">Подтвердить</button></form>
                 <button style="background-color: red;" onclick="notification.style.display = 'none'">Отмена</button>
             </div>
 
         </div>
     </div>
 
+    <div class="editor" id="editor" onclick="">
+        <div class="e-content">
+            <div style="display: flex">
+            <form method="post" enctype="multipart/form-data" style="max-width: 50%">
+                <img src=<?= "system/folders/" . $_SESSION["img"] ?> class="profile-img">
+                <input type="file" name="" id="">
+            </form>
+            <div class="info-profile">
+                <input type="text" value=<?= $_SESSION["title"] ?>
+                    style="border-bottom: 2px solid var(--base); font-weight: bold;">
+                <textarea name="" id="" rows="19"><?= $_SESSION["desc"] ?></textarea>
+            </div>
+            </div>
+            <button type="submit">Сохранить</button>
+        </div>
+        
+    </div>
+
+    <div id="appeal">
+        <div class="a-content" id="a-content">
+            <p id="a-text"></p>
+
+        </div>
+    </div>
+    
     <script>
         let modal = document.getElementById("notification")
-        function accept(){
-            
+        function accept() {
+            let dl = document.getElementById("del").value
+            let ac = document.getElementById("accept")
+            ac.value = dl
             modal.style.display = "block"
         }
+
+        function openEditor(id) {
+            ed = document.getElementById("editor")
+            ed.style.display = "block"
+        }
+
+        function openAppeal(val){
+            ap = document.getElementById("appeal")
+            ap.style.display = "block"
+            p = document.createElement("p")
+            h = document.createElement("h1")
+            b = document.createElement("button")
+            p.innerText = val["text"]
+            h.innerText = val["name"]
+            b.innerText = "Ответить"
+            
+        
+            document.getElementById("a-content").appendChild(h)
+            document.getElementById("a-content").appendChild(p)
+            document.getElementById("a-content").appendChild(b)
+
+
+        }
     </script>
+    <script src="js/tg-log.js"></script>
 </body>
 
 </html>

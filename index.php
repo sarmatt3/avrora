@@ -102,6 +102,22 @@ if (!isset($_COOKIE["auth"])) {
         </form>
     </main>
 
+
+    <form id="unbooking">
+        <div class="entry">
+            <label for="code-unbooking">Код бронирования</label>
+            <input type="text" id="code-unbooking">
+        </div>
+
+        <div class="entry">
+            <label for="phone-unbooking">Телефон</label>
+            <input type="text" id="phone-unbooking">
+        </div>
+
+        <button type="submit" class="cancel-color">Отменить бронь</button>
+        <p id="error"></p>
+    </form>
+
     <div id="notification" onclick="this.style.display = 'none'">
         <div class="content">
             <span class="material-icons">check_circle</span>
