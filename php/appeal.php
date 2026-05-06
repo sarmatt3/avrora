@@ -18,7 +18,7 @@ if (mb_strlen($text) >= 500){
     echo json_encode(["success" => false, "error" => "Слишком длинное сообщение. Уместитесь в 500 символов"]);
     exit;
 }
-$date = date("%Y-%m-%d");
+$date = date("Y-m-d");
 $sql = "INSERT INTO appeals(recipient, fullname, email, text, date) VALUES (?,?,?,?,?)";
 $stmt = $conn -> prepare($sql);
 $stmt -> bind_param('issss', $id, $fullname, $email, $text, $date);

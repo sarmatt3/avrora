@@ -10,7 +10,7 @@ $type = $data["type"];
 if ($type == "date"){
     $rest = $data["restaurant"];
 
-    $sql = "SELECT * FROM free_places WHERE restaurant = ? GROUP BY date";
+    $sql = "SELECT DISTINCT date FROM free_places WHERE restaurant = ? ";
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param("s", $rest);
     $stmt -> execute();
@@ -38,7 +38,7 @@ if ($type == "time"){
     $date = $data["date"];
     $rest = $data["restaurant"];
 
-    $sql = "SELECT * FROM free_places WHERE date = ? and restaurant = ? GROUP BY time";
+    $sql = "SELECT DISTINCT time FROM free_places WHERE date = ? and restaurant = ? ";
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param("ss", $date, $rest);
     $stmt -> execute();
@@ -66,7 +66,7 @@ if ($type == "table"){
     $time = $data["time"];
     $date = $data["date"];
     $rest = $data["restaurant"];
-    $sql = "SELECT * FROM free_places WHERE time = ? and date = ? and restaurant = ? GROUP BY table_";
+    $sql = "SELECT DISTINCT table_, id FROM free_places WHERE time = ? and date = ? and restaurant = ?";
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param("sss", $time, $date, $rest);
     $stmt -> execute();
