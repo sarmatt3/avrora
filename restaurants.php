@@ -2,7 +2,7 @@
 require_once("php/db.php");
 require_once("php/funcs.php");
 
-$sql = "SELECT name, description, img, site FROM restaurants";
+$sql = "SELECT name, description, img, site FROM restaurants WHERE status = 'active'";
 $result = mysqli_query($conn, $sql);
 ?>
 
