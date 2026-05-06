@@ -57,6 +57,7 @@ if (!isset($_COOKIE["auth"])) {
 
             <button onclick="openEditor(<?= $_SESSION['id'] ?>)" value=<?= $_SESSION["id"] ?>>Изменить</button>
             <button id="tg-log">Вход в телеграм</button>
+            <button onclick="logout()"><span class="material-icons">logout</span> Выход</button>
         </div>
     </div>
 
@@ -232,6 +233,12 @@ if (!isset($_COOKIE["auth"])) {
             document.getElementById("a-content").appendChild(p)
             document.getElementById("a-content").appendChild(b)
 
+
+        }
+
+        function logout(){
+            document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            location.reload()
 
         }
     </script>

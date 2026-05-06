@@ -34,6 +34,11 @@ if(!password_verify($pass, $row["password"])){
     exit;
 }
 
+if($row["status"] != "active"){
+    echo json_encode(["success" => false, "error" => "Учетная запись неактивна! Обратитесь в поддержку AVRORA для установления причин"]);
+    exit;
+}
+
 echo json_encode(["success" => true]);
 setcookie("auth", $row["session_token"], time() + (86400 * 3), "/");
 getData($row["session_token"]);

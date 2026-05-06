@@ -52,7 +52,7 @@ if (!isset($_COOKIE["auth"])) {
                 <select name="rest" id="rest">
                     <option value="">-- Выберите ресторан --</option>
                     <?php
-                    $sql = "SELECT name FROM restaurants";
+                    $sql = "SELECT name FROM restaurants WHERE status = 'active'";
                     $result = mysqli_query($conn, $sql);
                     while ($rest = $result->fetch_assoc()): ?>
                         <option value=<?= $rest['name'] ?>><?= $rest['name'] ?></option>

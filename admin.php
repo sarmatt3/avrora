@@ -19,13 +19,13 @@ require "php/funcs.php";
                 <td>Описание</td>
             </tr>
             <?php 
-            $sql = "SELECT id, name, description FROM restaurants";
+            $sql = "SELECT id, name, status FROM restaurants";
             $result = mysqli_query($conn, $sql);
             while ($row = $result -> fetch_assoc()):?>
             <tr >
                 <td><?=$row["id"]?></td>
                 <td><?=$row["name"]?></td>
-                <td><?=$row["description"]?></td>
+                <td><?=$row["status"]?></td>
             </tr>
             <?php endwhile;?>
             </table>
