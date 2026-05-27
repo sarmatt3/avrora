@@ -1,3 +1,21 @@
+function viewResult(result){
+    let mess = document.getElementById("notification")
+        let prest = document.getElementById("rest-p")
+        let ptime = document.getElementById("date-time-p")
+        let ptable = document.getElementById("table-p")
+        let pcode = document.getElementById("code-p")
+        let paddress = document.getElementById("address-p")
+
+        prest.innerText = result.result["rest"]
+        ptime.innerText = result.result["date-time"]
+        ptable.innerText = result.result["table"]
+        pcode.innerText = result.result["code"]
+        paddress.innerText = result.result["address"]
+
+        mess.style.display = "block"
+
+
+}
 document.getElementById("rest").addEventListener("change", restValChange);
 document.getElementById("date").addEventListener("change", dateValChange);
 document.getElementById("time").addEventListener("change", timeValChange);
@@ -24,32 +42,42 @@ document.getElementById("booking-form").addEventListener("submit", async e => {
     }
 
     else {
-        let mess = document.getElementById("notification")
-        let prest = document.getElementById("rest-p")
-        let ptime = document.getElementById("date-time-p")
-        let ptable = document.getElementById("table-p")
-        let pcode = document.getElementById("code-p")
-        let paddress = document.getElementById("address-p")
-
-        prest.innerText = result.result["rest"]
-        ptime.innerText = result.result["date-time"]
-        ptable.innerText = result.result["table"]
-        pcode.innerText = result.result["code"]
-        paddress.innerText = result.result["address"]
-
-        mess.style.display = "block"
+        viewResult(result)
     }
 
 });
 
+function showSuccess(text){
+    let popup = document.getElementById("popup")
+        let txt = document.getElementById("popuptext")
+        let icon = document.getElementById("icon")
+        let icon_d = document.getElementById("icon_d")
+        icon.innerText = "close"
+        icon.style.color = "#00cc2c"
+        popup.style.display = "flex"
+        popup.style.backgroundColor = "#afffc0"
+        txt.innerText = text
+
+        setTimeout(() => {
+        popup.style.display = "none"
+    }, 3000)
+}
+
 function showError(error) {
-    let errorLabel = document.getElementById("error");
-    errorLabel.innerText = error;
-    errorLabel.style.display = "block"
+
+    let popup = document.getElementById("popup")
+        let txt = document.getElementById("popuptext")
+        let icon = document.getElementById("icon")
+        let icon_d = document.getElementById("icon_d")
+        icon.innerText = "close"
+        icon.style.color = "#cc0000"
+        popup.style.display = "flex"
+        popup.style.backgroundColor = "#ffafaf"
+        
+        txt.innerText = error
 
     setTimeout(() => {
-        errorLabel.innerText = "";
-        errorLabel.style.display = ""
+        popup.style.display = "none"
     }, 3000)
 }
 
@@ -190,7 +218,45 @@ document.getElementById("unbooking").addEventListener("submit", async e => {
     if (!result.success) {
         showError(result.error)
     } else{
-        console.log(result.success)
+        
+        showSuccess("Ваша бронь " + code_u + " успешно отменена!")
+    }
+
+
+
+})
+
+document.getElementById("search").addEventListener("submit", async e => {
+    e.preventDefault()
+    let phone_s = document.getElementById("phone_sr").value
+    
+    let type = "search"
+
+    const response = await fetch("./php/booking.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type, phone_s })
+    });
+
+    const result = await response.json();
+
+    if (!result.success) {
+        showError(result.error)
+    } else{
+        let mess = document.getElementById("notification")
+        let prest = document.getElementById("rest-p")
+        let ptime = document.getElementById("date-time-p")
+        let ptable = document.getElementById("table-p")
+        let pcode = document.getElementById("code-p")
+        let paddress = document.getElementById("address-p")
+
+        prest.innerText = result.result["restaurant"]
+        ptime.innerText = result.result["date"] + " " + result.result["time"]
+        ptable.innerText = "Стол №" + result.result["table_"]
+        pcode.innerText = result.result["code"]
+        paddress.innerText = result.result["address"]
+
+        mess.style.display = "block"
     }
 
 

@@ -43,7 +43,8 @@ if (!isset($_COOKIE["auth"])) {
     </header>
     <main>
         <div class="info">
-            AVRORA - Забронируй место в ресторане в один клик!
+            <h1>AVRORA — ресторан, который ждёт вас в один клик.</h1><br>
+            <p>Представьте: вы хотите вкусно поужинать, но бронирование столика превращается в квест со звонками и ожиданием у телефона. В AVRORA мы решили это исправить. Наш сервис создан для тех, кто ценит своё время. Забудьте о долгих согласованиях. Теперь достаточно одного касания, чтобы забронировать лучший столик для романтического свидания, деловой встречи или ужина с друзьями. Просто выберите дату, время и количество гостей. Один клик, и место уже ваше. Никаких лишних форм, паролей и подтверждений. AVRORA — это новый стандарт гостеприимства. Быстро, удобно, элегантно. Ваш вечер начинается здесь. Забронируйте место прямо сейчас.</p>
         </div>
 
         <form id="booking-form">
@@ -52,7 +53,7 @@ if (!isset($_COOKIE["auth"])) {
                 <select name="rest" id="rest">
                     <option value="">-- Выберите ресторан --</option>
                     <?php
-                    $sql = "SELECT name FROM restaurants";
+                    $sql = "SELECT name FROM restaurants WHERE status = 'active'";
                     $result = mysqli_query($conn, $sql);
                     while ($rest = $result->fetch_assoc()): ?>
                         <option value=<?= $rest['name'] ?>><?= $rest['name'] ?></option>
@@ -103,7 +104,9 @@ if (!isset($_COOKIE["auth"])) {
     </main>
 
 
+    <main class="grid-2">
     <form id="unbooking">
+        <h2 style="color: #fff">Отменить бронь</h2><br>
         <div class="entry">
             <label for="code-unbooking">Код бронирования</label>
             <input type="text" id="code-unbooking">
@@ -118,7 +121,20 @@ if (!isset($_COOKIE["auth"])) {
         <p id="error"></p>
     </form>
 
-    <div id="notification" onclick="this.style.display = 'none'">
+
+    <form id="search">
+        <h2 style="color: #fff">Найти бронь</h2><br>
+        <div class="entry">
+            <label for="phone_sr">Телефон</label>
+            <input type="text" id="phone_sr">
+        </div>
+
+        <button type="submit" class="cancel-color">Найти бронь</button>
+        <p id="error"></p>
+    </form>
+    </main>
+
+    <div id="notification" >
         <div class="content">
             <span class="material-icons">check_circle</span>
             <h1>Успешно!</h1>
@@ -144,6 +160,11 @@ if (!isset($_COOKIE["auth"])) {
             <a href="contacts.php">Контакты</a>
 
         </nav>
+    </div>
+
+    <div class="notif-popup" id="popup">
+        <div class="icon" id="icon_d"><span class="material-icons" id="icon"></span></div>
+        <p id="popuptext"></p>
     </div>
 
     <script src="js/booking.js"></script>

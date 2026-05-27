@@ -10,7 +10,7 @@ $type = $data["type"];
 if ($type == "date"){
     $rest = $data["restaurant"];
 
-    $sql = "SELECT * FROM free_places WHERE restaurant = ? GROUP BY date";
+    $sql = "SELECT DISTINCT date FROM free_places WHERE restaurant = ? ";
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param("s", $rest);
     $stmt -> execute();
@@ -38,7 +38,7 @@ if ($type == "time"){
     $date = $data["date"];
     $rest = $data["restaurant"];
 
-    $sql = "SELECT * FROM free_places WHERE date = ? and restaurant = ? GROUP BY time";
+    $sql = "SELECT DISTINCT time FROM free_places WHERE date = ? and restaurant = ? ";
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param("ss", $date, $rest);
     $stmt -> execute();
@@ -66,7 +66,7 @@ if ($type == "table"){
     $time = $data["time"];
     $date = $data["date"];
     $rest = $data["restaurant"];
-    $sql = "SELECT * FROM free_places WHERE time = ? and date = ? and restaurant = ? GROUP BY table_";
+    $sql = "SELECT DISTINCT table_, id FROM free_places WHERE time = ? and date = ? and restaurant = ?";
     $stmt = $conn -> prepare($sql);
     $stmt -> bind_param("sss", $time, $date, $rest);
     $stmt -> execute();
@@ -172,6 +172,38 @@ if ($type == "unbooking"){
     $stmt -> bind_param("sissss", $row["restaurant"], $row["restaurant_id"], $row["date"], $row["time"], $row["table_"], $row["address"]);
     $stmt -> execute();
     $stmt -> close();
+
+    echo json_encode(["success" => true]);
+
+}
+
+
+if ($type == "search"){
+    $phone = $data["phone_s"];
+    
+
+    $sql = "SELECT * FROM booked_places WHERE phone = ?";
+    $stmt = $conn -> prepare($sql);
+    $stmt -> bind_param("s", $phone);
+    $stmt -> execute();
+    $result = $stmt -> get_result();
+    $num = $result -> num_rows;
+    
+    $stmt -> close();
+    if ($num == 0){
+        echo json_encode(["success" => false, "error" => "Бронь не найдена!"]);
+        exit;
+    } else if($num == 1){
+        $row = $result -> fetch_assoc();
+        echo json_encode(["success" => true, "result" => $row]);
+        exit;
+
+    }else {
+    $book = [];
+    while($row = $result -> fetch_assoc()){
+
+    };}
+    
 
     echo json_encode(["success" => true]);
 

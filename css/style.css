@@ -11,6 +11,10 @@ button {
     cursor: pointer;
 }
 
+body{
+    background-color: #f6f7fb;
+}
+
 :root {
     --base: #202020;
     --white: #ffffff;
@@ -32,6 +36,10 @@ button {
     width: 100%;
     font-size: 20px;
     border-radius: 10px;
+}
+
+#search button{
+    background-color: #00cc2c;
 }
 
 /* H  E  A  D  E  R */
@@ -278,7 +286,7 @@ nav.menu span.material-icons{
 /* I N D E X */
 
 main {
-    background-color: #fdfff5;
+    background-color: #ffffff;
     display: flex;
     padding: 20px;
     width: 80%;
@@ -289,14 +297,25 @@ main {
 }
 
 
+.grid-2{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
 
 .info,
-main form,  #unbooking{
-    width: 50%;
+main form,  #unbooking, #search{
+    width: 100%;
     gap: 25px;
 }
 
-main form, #unbooking {
+.info p{
+    font-size: 20px;
+    font-style: italic;
+}
+
+main form, #unbooking, #search {
     background-color: var(--base);
     padding: 25px;
     border-radius: 10px;
@@ -348,13 +367,13 @@ main form .entry label {
     }
 }
 
-#unbooking{
+#unbooking, #search{
     margin: 10px auto;
 }
 
 main,
 .login-form,
-.rest, #unbooking {
+.rest, #unbooking, #search {
     animation: fadein 1s;
 }
 
@@ -426,7 +445,7 @@ main,
 #notification, #editor, #appeal{
     height: 100vh;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     place-content: center;
     min-height: 100vh;
@@ -727,3 +746,44 @@ main,
     }
 }
 
+#popup{
+    min-height: 8vh;
+    right: 20px;
+    bottom: 20px;
+    position: fixed;
+    padding: 10px;
+    width: max-content;
+    min-width: 35%;
+    height: max-content;
+    display: none;
+    background-color: #fff;
+    box-shadow: 0 0 4px 2px #00000025;
+    align-items: center;
+    border-radius: 10px;
+    
+
+}
+
+#popup .icon{
+    margin-right: 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    min-height: 5vh;
+    background-color: rgb(255 255 255 / 63%);
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    flex-wrap: nowrap;
+    align-content: space-around;
+    justify-content: center;
+    border-radius: 10px;
+
+}
+
+.icon span.material-icons{
+
+    font-size: 25px;
+    font-weight: bold;
+
+    font-size: 30px;
+}
