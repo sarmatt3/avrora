@@ -237,8 +237,10 @@ if (!isset($_COOKIE["auth"])) {
         }
 
         function logout(){
+            let conf = confirm("Вы действительно хотите выйти из системы?")
+            if (conf){
             document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-            location.reload()
+            location.reload()} else{}
 
         }
     </script>
