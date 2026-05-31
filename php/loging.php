@@ -43,6 +43,11 @@ if (!password_verify($pass, $row["password"])) {
     exit;
 }
 
+if (isset($row["status"]) && $row["status"] != "active"){
+    echo json_encode(["success" => false, "error" => "Ваша учетная запись заблокирована!"]);
+    exit;
+}
+
 // Устанавливаем куку
 setcookie("auth", $row["session_token"], time() + (86400 * 3), "/");
 setcookie("user_role", $role, time() + (86400 * 3), "/");

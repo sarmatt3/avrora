@@ -160,12 +160,7 @@ if (!isset($_COOKIE["auth"])) {
     </div>
 
 
-    <div id="manage_panel" onmouseenter="manage_panel.style.display = 'block'"
-        onmouseleave="manage_panel.style.display = 'none'">
-        <nav>
-            <button onclick=""><span class="material-icons">logout</span> Выход</button>
-        </nav>
-    </div>
+  
 
     <div class="warning" id="notification">
         <div class="content warning-bd">

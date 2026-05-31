@@ -1,13 +1,22 @@
+
 function showError(error) {
-    let errorLabel = document.getElementById("error");
-    errorLabel.innerText = error;
-    errorLabel.style.display = "block"
+
+    let popup = document.getElementById("popup")
+        let txt = document.getElementById("popuptext")
+        let icon = document.getElementById("icon")
+        let icon_d = document.getElementById("icon_d")
+        icon.innerText = "close"
+        icon.style.color = "#cc0000"
+        popup.style.display = "flex"
+        popup.style.backgroundColor = "#ffafaf"
+        
+        txt.innerText = error
 
     setTimeout(() => {
-        errorLabel.innerText = "";
-        errorLabel.style.display = "none"
+        popup.style.display = "none"
     }, 3000)
 }
+
 
 window.document.getElementById("login_form").addEventListener("submit", async e => {
     e.preventDefault();

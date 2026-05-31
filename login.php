@@ -28,9 +28,14 @@
             <button type="submit">Войти</button>
             <a href="">Подключить ресторан</a>
         </div>
-        <p id="error"></p>
+       
 
     </form>
+    <div class="notif-popup" id="popup">
+        <div class="icon" id="icon_d"><span class="material-icons" id="icon"></span></div>
+        <p id="popuptext"></p>
+    </div>
+
     <script src="js/loging.js"></script>
 </body>
 

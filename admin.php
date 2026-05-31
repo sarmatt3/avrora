@@ -221,6 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
 
 
     <button onclick="window.location.href = 'php/add-rest.php'">Подключить новый ресторан</button>
+    <button onclick="logout()"><span class="material-icons">logout</span> Выход</button>
 
     <div id="dialog_reply">
         <div class="content">
@@ -252,6 +253,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
             let ac = document.getElementById("accept")
             ac.value = dl
             modal.style.display = "block"
+        }
+
+        function logout(){
+            let conf = confirm("Вы действительно хотите выйти из системы?")
+            if (conf){
+            document.cookie = "auth=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+            location.reload()} else{}
+
         }
 
     function reply(email, name, text, id){
