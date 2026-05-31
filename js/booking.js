@@ -52,7 +52,7 @@ function showSuccess(text){
         let txt = document.getElementById("popuptext")
         let icon = document.getElementById("icon")
         let icon_d = document.getElementById("icon_d")
-        icon.innerText = "close"
+        icon.innerText = "check"
         icon.style.color = "#00cc2c"
         popup.style.display = "flex"
         popup.style.backgroundColor = "#afffc0"

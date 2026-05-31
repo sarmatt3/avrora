@@ -1,7 +1,7 @@
 <?php
 require_once('db.php');
 session_start();
-function getData($token)
+function getData($token, $role = null)
 {
     global $conn;
     $sql = "SELECT * FROM restaurants WHERE session_token = ?";
@@ -18,11 +18,13 @@ function getData($token)
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         $_SESSION["id"] = (int)$row["id"];
+        $_SESSION["lgn"] = $row["login"];
+        $_SESSION["verify"] = password_verify($_SESSION["lgn"], $role);
 
         $_SESSION["title"] = $row["fullname"];
         $_SESSION["privilege"] = $row["privilege"];
         $_SESSION["url"] = "admin.php";
-        $_SESSION["lgn"] = $row["login"];
+        
         
 
     } else {

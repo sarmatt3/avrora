@@ -2,12 +2,17 @@
 require "php/db.php";
 require "php/funcs.php";
 
-if (!isset($_COOKIE["auth"])) {
+if (!isset($_COOKIE["auth"]) || !isset($_COOKIE["verify"])) {
     $_SESSION['title'] = "Вход";
     $_SESSION["url"] = "login.php";
     header("Location: login.php");
 } else {
-    getData($_COOKIE["auth"]);
+    getData($_COOKIE["auth"], $_COOKIE["verify"]);
+    if (!$_SESSION["verify"]){
+        $_SESSION['title'] = "Вход";
+    $_SESSION["url"] = "login.php";
+    header("Location: login.php");
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST["disable"]) || isset($_POST["activate"]))) {
@@ -23,19 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && (isset($_POST["disable"]) || isset($
     mysqli_query($conn, $sql);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
-    $adm_id = $_POST["delete_adm"];
-    if($_SESSION["privilege"] > 5){
-    $sql = "DELETE FROM admins WHERE id = '$adm_id'";
-    mysqli_query($conn, $sql);}
-    else if($_SESSION["id"] == $adm_id){
-        header("Location: admin.php");
-        exit;
-    }else{
-        header("Location: admin.php");
-        exit;
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -44,12 +36,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <link rel="stylesheet" href="css/admin.css">
     
     <title>Администрирование и управление сервисом</title>
 </head>
 
 <body>
+    <main>
+        <h1><?=$_SESSION["title"]?></h1>
+        <p><?="Логин: " . $_SESSION["lgn"]?></p>
+        <h3><?="Уровень доступа: " . $_SESSION["privilege"]?></h3>
+        <button onclick="logout()"><span class="material-icons">logout</span> Выход</button>
+    </main>
     <main class="col-2">
         <h1>Рестораны</h1>
         <table>
@@ -210,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
                     <td><?= $adm["id"] ?></td>
                     <td><?= $adm["fullname"] ?></td>
                     <td><?= $adm["login"] ?></td>
-                    <td><form action="" method="POST"><button name="delete_adm" value="<?=$adm['id']?>" class="red" onclick="confirm()">Удалить</button></form></td>
+                    <td><button name="delete_adm" value="<?=$adm['id']?>" class="red">Удалить</button></td>
                     
                     
                 </tr>
@@ -221,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
 
 
     <button onclick="window.location.href = 'php/add-rest.php'">Подключить новый ресторан</button>
-    <button onclick="logout()"><span class="material-icons">logout</span> Выход</button>
+    
 
     <div id="dialog_reply">
         <div class="content">
@@ -245,7 +244,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
 
         </div>
     </div>
-    <script src="js/restObr.js"></script>
+
+
+    <div class="notif-popup" id="popup">
+        <div class="icon" id="icon_d"><span class="material-icons" id="icon"></span></div>
+        <p id="popuptext"></p>
+    </div>
+
+    <script src="js/admining.js"></script>
 <script>
     let modal = document.getElementById("notification")
         function accept() {
@@ -276,9 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST["delete_adm"])){
 
     }
 
-    function confirm(){
-        confirm("Подтвердите удаление")
-    }
+    
 </script>
 </body>
 

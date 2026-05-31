@@ -50,7 +50,8 @@ if (isset($row["status"]) && $row["status"] != "active"){
 
 // Устанавливаем куку
 setcookie("auth", $row["session_token"], time() + (86400 * 3), "/");
-setcookie("user_role", $role, time() + (86400 * 3), "/");
+$u_role = password_hash($login, PASSWORD_DEFAULT);
+setcookie("verify", $u_role, time() + (86400 * 3), "/");
 
 // Возвращаем успех и роль
 echo json_encode(["success" => true, "role" => $role]);
