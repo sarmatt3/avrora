@@ -36,7 +36,7 @@ if (!isset($_COOKIE["auth"])) {
         <nav>
             <a href="index.php">Бронирование</a>
             <a href="restaurants.php">Рестораны</a>
-            <a href="contacts.php" style="text-decoration: underline; font-weight: bold;">Контакты</a>
+            <a href="contacts.php" class="checked_h">Контакты</a>
         </nav>
 
         <nav class="login-btn">

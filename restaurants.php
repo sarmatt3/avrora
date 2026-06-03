@@ -30,7 +30,7 @@ $result = mysqli_query($conn, $sql);
 
         <nav>
             <a href="index.php">Бронирование</a>
-            <a href="restaurants.php" style="text-decoration: underline; font-weight: bold; ">Рестораны</a>
+            <a href="restaurants.php" class="checked_h">Рестораны</a>
             <a href="contacts.php">Контакты</a>
         </nav>
 

@@ -70,6 +70,7 @@ nav a {
     font-size: 24px;
     text-decoration: none;
     color: var(--white);
+    padding: 5px;
 }
 
 nav.menu {
@@ -508,7 +509,19 @@ main,
         width: 70%;
     }
 }
+#editor .e-content{
+    width: 75%;
+    max-height: 85vh;
+}
+#editor .e-content div{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
 
+
+.info-profile{
+    display: grid;
+}
 
 /* C O N T A C T S */
 
@@ -639,7 +652,7 @@ main,
     border-radius: 10px;
 }
 
-.profile button{
+.profile button:not(.logout){
     padding: 5px 10px;
     color: var(--base);
     font-size: 20px;
@@ -746,6 +759,30 @@ main,
     }
 }
 
+.checked_h{
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 10px;
+    color: var(--base);
+    font-weight: bold;
+}
+
+@keyframes popupin{
+    0%{
+        transform: translateX(100%);
+    }
+    100%{}
+}
+
+@keyframes out{
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
 #popup{
     min-height: 8vh;
     right: 20px;
@@ -760,9 +797,13 @@ main,
     box-shadow: 0 0 4px 2px #00000025;
     align-items: center;
     border-radius: 10px;
+    animation: popupin 0.5s;
+   
     
 
 }
+
+
 
 #popup .icon{
     margin-right: 10px;
@@ -786,4 +827,25 @@ main,
     font-weight: bold;
 
     font-size: 30px;
+}
+
+.logout{
+    background-color: #ff0000;
+    padding: 5px 10px;
+    color: var(--white);
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    
+    margin-top: 15px;
+    position: static;
+    text-align: right;
+    
+    
+}
+
+.logout span.material-icons{
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
 }

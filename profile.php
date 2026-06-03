@@ -42,7 +42,7 @@ if (!isset($_COOKIE["auth"])) {
         <nav class="login-btn" onclick="manage_panel.style.display = 'block'">
             <a href=<?= $_SESSION["url"] ?> onmouseenter="manage_panel.style.display = 'block'"
                 onmouseleave="manage_panel.style.display = 'none'"
-                style="text-decoration: underline; font-weight: bold;"><?= $_SESSION["title"] ?>
+                class="checked_h"><?= $_SESSION["title"] ?>
             </a>
         </nav>
     </header>
@@ -57,7 +57,7 @@ if (!isset($_COOKIE["auth"])) {
 
             <button onclick="openEditor(<?= $_SESSION['id'] ?>)" value=<?= $_SESSION["id"] ?>>Изменить</button>
             <button id="tg-log">Вход в телеграм</button>
-            <button onclick="logout()"><span class="material-icons">logout</span> Выход</button>
+            <button class="logout" onclick="logout()"><span class="material-icons">logout</span> Выход</button>
         </div>
     </div>
 
@@ -176,7 +176,7 @@ if (!isset($_COOKIE["auth"])) {
 
     <div class="editor" id="editor" onclick="">
         <div class="e-content">
-            <div style="display: flex">
+            <div >
             <form method="post" enctype="multipart/form-data" style="max-width: 50%">
                 <img src=<?= "system/folders/" . $_SESSION["img"] ?> class="profile-img">
                 <input type="file" name="" id="">
